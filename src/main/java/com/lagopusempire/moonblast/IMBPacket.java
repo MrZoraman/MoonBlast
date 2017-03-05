@@ -37,6 +37,8 @@ public class IMBPacket {
     
     private final List<IMBParam> params = new ArrayList<>();
     
+    private boolean versionValid = true;
+    
     public IMBPacket() { }
     
     public IMBPacket(byte[] data) {
@@ -47,7 +49,8 @@ public class IMBPacket {
         int version = buffer.getInt();
         
         if(!VERSION_HANDLER.isVersionValid(version)) {
-            //error
+            versionValid = false;
+            return;
         }
         
         int paramsLength = buffer.getInt();
@@ -64,7 +67,7 @@ public class IMBPacket {
         
         byte endByte = buffer.get();
         if(endByte != PACKET_END) {
-            //error
+            throw new PacketParseException("packet missing closing byte!");
         }
     }
     
@@ -124,4 +127,8 @@ public class IMBPacket {
 //    public IMBPacket addBoolean(boolean value);
 //    public IMBPacket addChar(char value);
 //    public IMBPacket addBinary(byte[] value);
+    
+    private boolean isVersionValid() {
+        return versionValid;
+    }
 }
