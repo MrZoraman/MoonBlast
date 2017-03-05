@@ -5,7 +5,9 @@ import com.lagopusempire.moonblast.params.IntParam;
 import com.lagopusempire.moonblast.params.ParamType;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class IMBPacket {
     static final byte PACKET_START = '(';
@@ -19,6 +21,18 @@ public class IMBPacket {
         //... (various data)
         ParamType.BYTE //closing char
     };
+    
+    @FunctionalInterface
+    private interface Deserializer {
+        public void deserialize(List<IMBParam> params, ByteBuffer buffer);
+    }
+    
+    private static Map<ParamType, Deserializer> DESERIALIZERS = new HashMap<>();
+    
+    static
+    {
+        DESERIALIZERS.put(ParamType.INT, (params, buffer) -> params.add(new IntParam(buffer)));
+    }
     
     static final int VERSION = 1;
     
@@ -46,11 +60,7 @@ public class IMBPacket {
         
         for(int ii = 0; ii < paramTypes.size(); ii++) {
             ParamType type = paramTypes.get(ii);
-            switch(type) {
-                case INT:
-                    params.add(new IntParam(buffer));
-                    break;
-            }
+            DESERIALIZERS.get(type).deserialize(params, buffer);
         }
         
         byte endByte = buffer.get();
