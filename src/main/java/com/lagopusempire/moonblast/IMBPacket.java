@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 public class IMBPacket {
-    static final byte PACKET_START = '(';
-    static final byte PACKET_END = ')';
+    private static final byte PACKET_START = '(';
+    private static final byte PACKET_END = ')';
+    private static Map<ParamType, Deserializer> DESERIALIZERS = new HashMap<>();
+    private static final VersionHandler versionHandler = new VersionHandler();
     
     private static final ParamType[] PACKET_LAYOUT = {
         ParamType.BYTE, //opening char
@@ -27,14 +29,12 @@ public class IMBPacket {
         public void deserialize(List<IMBParam> params, ByteBuffer buffer);
     }
     
-    private static Map<ParamType, Deserializer> DESERIALIZERS = new HashMap<>();
     
     static
     {
         DESERIALIZERS.put(ParamType.INT, (params, buffer) -> params.add(new IntParam(buffer)));
     }
     
-    static final int VERSION = 1;
     
     private final List<IMBParam> params = new ArrayList<>();
     
@@ -47,7 +47,7 @@ public class IMBPacket {
         ByteBuffer buffer = ByteBuffer.wrap(data);
         int version = buffer.getInt();
         
-        if(version != VERSION) {
+        if(!versionHandler.isVersionValid(version)) {
             //error
         }
         
@@ -79,7 +79,7 @@ public class IMBPacket {
         
         buffer.put(PACKET_START);
         buffer.putInt(packetLengthInBytes);
-        buffer.putInt(VERSION);
+        buffer.putInt(versionHandler.getVersion());
         buffer.putInt(params.size());
         
         for(int ii = 0; ii < params.size(); ii++) {
