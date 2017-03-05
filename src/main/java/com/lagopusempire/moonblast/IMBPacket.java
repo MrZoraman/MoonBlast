@@ -13,7 +13,7 @@ public class IMBPacket {
     private static final byte PACKET_START = '(';
     private static final byte PACKET_END = ')';
     private static Map<ParamType, Deserializer> DESERIALIZERS = new HashMap<>();
-    private static final VersionHandler versionHandler = new VersionHandler();
+    private static final VersionHandler VERSION_HANDLER = new VersionHandler();
     
     private static final ParamType[] PACKET_LAYOUT = {
         ParamType.BYTE, //opening char
@@ -47,7 +47,7 @@ public class IMBPacket {
         ByteBuffer buffer = ByteBuffer.wrap(data);
         int version = buffer.getInt();
         
-        if(!versionHandler.isVersionValid(version)) {
+        if(!VERSION_HANDLER.isVersionValid(version)) {
             //error
         }
         
@@ -79,7 +79,7 @@ public class IMBPacket {
         
         buffer.put(PACKET_START);
         buffer.putInt(packetLengthInBytes);
-        buffer.putInt(versionHandler.getVersion());
+        buffer.putInt(VERSION_HANDLER.getVersion());
         buffer.putInt(params.size());
         
         for(int ii = 0; ii < params.size(); ii++) {
