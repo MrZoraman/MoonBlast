@@ -1,6 +1,13 @@
 package com.lagopusempire.moonblast;
 
+import com.lagopusempire.moonblast.params.IMBParam;
+
 public interface IMBPacket {
+    static final byte PACKET_START = '(';
+    static final byte PACKET_END = ')';
+    
+    static final int VERSION = 1;
+    
 //    public IMBPacket addByte(byte value);
 //    public IMBPacket addShort(short value);
 //    public IMBPacket addInt(int value);
@@ -26,6 +33,7 @@ public interface IMBPacket {
 //    public String getString(int index);
 //    public byte[] getBinary(int index);
     
+    public IMBParam[] getParams();
     
     public int getParamsLength();
     

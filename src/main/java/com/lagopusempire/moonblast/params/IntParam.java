@@ -3,14 +3,10 @@ package com.lagopusempire.moonblast.params;
 import java.nio.ByteBuffer;
 
 public class IntParam implements IMBParam {
-    private int value;
+    private final int value;
     
     public IntParam(int value) {
         this.value = value;
-    }
-    
-    public IntParam() {
-        
     }
     
     public int getInt() {
@@ -22,4 +18,8 @@ public class IntParam implements IMBParam {
         buffer.putInt(index, value);
     }
     
+    @Override
+    public ParamType getType() {
+        return ParamType.INT;
+    }
 }
