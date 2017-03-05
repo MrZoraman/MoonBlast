@@ -72,7 +72,7 @@ public class IMBPacket {
     }
     
     public IMBParam[] getParams() {
-        return params.toArray(new IMBParam[0]);
+        return params.stream().toArray(IMBParam[]::new);
     }
     
     public byte[] getData() {
