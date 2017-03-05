@@ -14,8 +14,8 @@ public class IntParam implements IMBParam {
     }
 
     @Override
-    public void fillBuffer(ByteBuffer buffer, int index) {
-        buffer.putInt(index, value);
+    public void fillBuffer(ByteBuffer buffer) {
+        buffer.putInt(value);
     }
     
     @Override

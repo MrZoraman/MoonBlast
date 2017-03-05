@@ -40,7 +40,18 @@ public class IMBPacket {
         ByteBuffer buffer = ByteBuffer.allocate(packetLengthInBytes);
         
         buffer.put(PACKET_START);
-        buffer.putLong(packetLengthInBytes);
+        buffer.putInt(packetLengthInBytes);
+        buffer.putInt(VERSION);
+        buffer.putInt(params.size());
+        
+        for(int ii = 0; ii < params.size(); ii++) {
+            buffer.put(params.get(ii).getType().getValue());
+        }
+        
+        for(int ii = 0; ii < params.size(); ii++) {
+            params.get(ii).fillBuffer(buffer);
+        }
+        
         buffer.put(PACKET_END);
         
         return buffer.array();
