@@ -1,6 +1,6 @@
 package com.lagopusempire.moonblast.params;
 
-public enum ParamTypes {
+public enum ParamType {
     
     BYTE(0),
     SHORT(1),
@@ -13,7 +13,7 @@ public enum ParamTypes {
     STRING(8),
     BINARY(9);
     
-    private static final ParamTypes[] TYPES = {
+    private static final ParamType[] TYPES = {
         BYTE,
         SHORT,
         INT,
@@ -29,7 +29,7 @@ public enum ParamTypes {
     
     int value;
     
-    private ParamTypes(int value) {
+    private ParamType(int value) {
         this.value = value;
     }
 
@@ -37,7 +37,7 @@ public enum ParamTypes {
         return value;
     }
 
-    public ParamTypes get(int value) {
+    public static ParamType get(int value) {
         return TYPES[value];
     }
 }
