@@ -26,15 +26,14 @@ public enum ParamType {
         BINARY
     };
     
-    
-    int value;
+    final int value;
     
     private ParamType(int value) {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
+    public byte getValue() {
+        return (byte) value;
     }
 
     public static ParamType get(int value) {
