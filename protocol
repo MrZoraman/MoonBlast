@@ -3,7 +3,7 @@
 packet_start length version params_length layout data data data ... (binary_data) packet_end
 
 packet_start: 1 byte, start symbol
-length: 8 bytes, length of entire packet
+length: 4 bytes, length of entire packet
 version: 4 bytes, protocol version
 params_length: 4 bytes, number of params
 

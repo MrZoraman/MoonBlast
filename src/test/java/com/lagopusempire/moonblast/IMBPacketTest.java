@@ -11,7 +11,7 @@ public class IMBPacketTest {
     @Test
     public void testPacketLength() {
         IMBPacket packet = new IMBPacket();
-        assertEquals(1 + 8 + 4 + 4 + 1, packet.getPacketLengthInBytes());
+        assertEquals(1 + 4 + 4 + 4 + 1, packet.getPacketLengthInBytes());
     }
     
     @Test
@@ -20,7 +20,7 @@ public class IMBPacketTest {
         packet.addInt(57);
         packet.addInt(632);
         packet.addInt(-4);
-        assertEquals(1 + 8 + 4 + 4 + (1 * 3) + (4 + 4 + 4) + 1, packet.getPacketLengthInBytes());
+        assertEquals(1 + 4 + 4 + 4 + (1 * 3) + (4 + 4 + 4) + 1, packet.getPacketLengthInBytes());
     }
     
 }

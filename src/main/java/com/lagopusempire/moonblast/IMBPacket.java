@@ -3,6 +3,7 @@ package com.lagopusempire.moonblast;
 import com.lagopusempire.moonblast.params.IMBParam;
 import com.lagopusempire.moonblast.params.IntParam;
 import com.lagopusempire.moonblast.params.ParamType;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class IMBPacket {
     
     private static final ParamType[] PACKET_LAYOUT = {
         ParamType.BYTE, //opening char
-        ParamType.LONG, //length
+        ParamType.INT, //length (byte count)
         ParamType.INT, //version
         ParamType.INT, //number of params
         //... (various data)
@@ -35,8 +36,14 @@ public class IMBPacket {
     }
     
     byte[] getData() {
+        int packetLengthInBytes = getPacketLengthInBytes();
+        ByteBuffer buffer = ByteBuffer.allocate(packetLengthInBytes);
         
-        return null;
+        buffer.put(PACKET_START);
+        buffer.putLong(packetLengthInBytes);
+        buffer.put(PACKET_END);
+        
+        return buffer.array();
     }
     
     public void addIMBParam(IMBParam param) {
