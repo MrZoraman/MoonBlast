@@ -2,12 +2,22 @@ package com.lagopusempire.moonblast;
 
 import com.lagopusempire.moonblast.params.IMBParam;
 import com.lagopusempire.moonblast.params.IntParam;
+import com.lagopusempire.moonblast.params.ParamType;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IMBPacket {
     static final byte PACKET_START = '(';
     static final byte PACKET_END = ')';
+    
+    private static final ParamType[] PACKET_LAYOUT = {
+        ParamType.BYTE, //opening char
+        ParamType.LONG, //length
+        ParamType.INT, //version
+        ParamType.INT, //number of params
+        //... (various data)
+        ParamType.BYTE //closing char
+    };
     
     static final int VERSION = 1;
     
@@ -33,8 +43,18 @@ public class IMBPacket {
         params.add(param);
     }
     
-    private int getPacketLengthInBytes() {
-        return 0;
+    public int getPacketLengthInBytes() {
+        int length = 0;
+        for(ParamType type : PACKET_LAYOUT) {
+            length += type.getSizeInBytes();
+        }
+        
+        for(IMBParam param : params) {
+            length += 1; //1 byte to store the existance of this param
+            length += param.getSizeInBytes();
+        }
+        
+        return length;
     }
     
 //    public IMBPacket addByte(byte value);

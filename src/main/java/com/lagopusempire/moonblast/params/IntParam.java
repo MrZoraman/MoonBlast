@@ -22,4 +22,9 @@ public class IntParam implements IMBParam {
     public ParamType getType() {
         return ParamType.INT;
     }
+    
+    @Override
+    public int getSizeInBytes() {
+        return getType().getSizeInBytes();
+    }
 }
