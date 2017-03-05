@@ -12,7 +12,7 @@ import java.util.Map;
 public class IMBPacket {
     private static final byte PACKET_START = '(';
     private static final byte PACKET_END = ')';
-    private static Map<ParamType, Deserializer> DESERIALIZERS = new HashMap<>();
+    private static final Map<ParamType, Deserializer> DESERIALIZERS = new HashMap<>();
     private static final VersionHandler VERSION_HANDLER = new VersionHandler();
     
     private static final ParamType[] PACKET_LAYOUT = {
@@ -28,7 +28,6 @@ public class IMBPacket {
     private interface Deserializer {
         public void deserialize(List<IMBParam> params, ByteBuffer buffer);
     }
-    
     
     static
     {
