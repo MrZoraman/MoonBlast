@@ -1,5 +1,7 @@
 package com.lagopusempire.moonblast.params;
 
+import java.nio.ByteBuffer;
+
 public class IntParam implements IMBParam {
     private int value;
     
@@ -14,9 +16,10 @@ public class IntParam implements IMBParam {
     public int getInt() {
         return value;
     }
-    
+
     @Override
-    public byte[] getData() {
-        return null;
+    public void fillBuffer(ByteBuffer buffer, int index) {
+        buffer.putInt(index, value);
     }
+    
 }

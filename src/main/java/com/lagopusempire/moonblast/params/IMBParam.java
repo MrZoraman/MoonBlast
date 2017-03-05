@@ -1,5 +1,7 @@
 package com.lagopusempire.moonblast.params;
 
+import java.nio.ByteBuffer;
+
 public interface IMBParam {
-    public byte[] getData();
+    public void fillBuffer(ByteBuffer buffer, int index);
 }
