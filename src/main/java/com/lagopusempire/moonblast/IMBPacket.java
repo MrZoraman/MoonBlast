@@ -105,7 +105,7 @@ public class IMBPacket {
         }
         
         for(IMBParam param : params) {
-            length += 1; //1 byte to store the existance of this param
+            length += 1; //1 byte to store the existence of this param
             length += param.getSizeInBytes();
         }
         
