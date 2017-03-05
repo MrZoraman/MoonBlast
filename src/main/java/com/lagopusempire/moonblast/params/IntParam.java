@@ -9,6 +9,10 @@ public class IntParam implements IMBParam {
         this.value = value;
     }
     
+    public IntParam(ByteBuffer buffer) {
+        this.value = buffer.getInt();
+    }
+    
     public int getInt() {
         return value;
     }

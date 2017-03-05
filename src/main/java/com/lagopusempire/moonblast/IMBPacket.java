@@ -24,18 +24,46 @@ public class IMBPacket {
     
     private final List<IMBParam> params = new ArrayList<>();
     
-    public IMBPacket() {
+    public IMBPacket() { }
+    
+    public IMBPacket(byte[] data) {
+        //when this method is called, the start char and the length of packet
+        //will have already been read. Length of packet is built into
+        //data.length
+        ByteBuffer buffer = ByteBuffer.wrap(data);
+        int version = buffer.getInt();
+        
+        if(version != VERSION) {
+            //error
+        }
+        
+        int paramsLength = buffer.getInt();
+        List<ParamType> paramTypes = new ArrayList<>();
+        for(int ii = 0; ii < paramsLength; ii++) {
+            byte typeValue = buffer.get();
+            paramTypes.add(ParamType.get(typeValue));
+        }
+        
+        for(int ii = 0; ii < paramTypes.size(); ii++) {
+            ParamType type = paramTypes.get(ii);
+            switch(type) {
+                case INT:
+                    params.add(new IntParam(buffer));
+                    break;
+            }
+        }
+        
+        byte endByte = buffer.get();
+        if(endByte != PACKET_END) {
+            //error
+        }
     }
     
     public IMBParam[] getParams() {
         return params.toArray(new IMBParam[0]);
     }
     
-    public int getParamsLength() {
-        return 0;
-    }
-    
-    byte[] getData() {
+    public byte[] getData() {
         int packetLengthInBytes = getPacketLengthInBytes();
         ByteBuffer buffer = ByteBuffer.allocate(packetLengthInBytes);
         

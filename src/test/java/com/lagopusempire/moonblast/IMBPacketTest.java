@@ -23,4 +23,16 @@ public class IMBPacketTest {
         assertEquals(1 + 4 + 4 + 4 + (1 * 3) + (4 + 4 + 4) + 1, packet.getPacketLengthInBytes());
     }
     
+    @Test
+    public void testPacketWithInts() {
+        IMBPacket packet = new IMBPacket();
+        packet.addInt(1);
+        //assertEquals(1 + 4 + 4 + 4 + (1 * 1) + (4) + 1, packet.getPacketLengthInBytes());
+        
+        byte[] packetData = packet.getData();
+        byte[] expectedData = new byte[] {
+            '('
+        };
+    }
+    
 }
