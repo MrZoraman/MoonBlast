@@ -1,0 +1,8 @@
+--- moonblast protocol ---
+
+version header params_length layout data data data
+
+version: 4 bytes, protocol version
+header: 8 bytes, length of entire packet
+params_length: 4 bytes, number of params
+layout: 1 byte * params_length
