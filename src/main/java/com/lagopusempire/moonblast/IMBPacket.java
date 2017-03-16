@@ -4,6 +4,7 @@ import com.lagopusempire.moonblast.params.ByteParam;
 import com.lagopusempire.moonblast.params.IMBParam;
 import com.lagopusempire.moonblast.params.IntParam;
 import com.lagopusempire.moonblast.params.ParamType;
+import com.lagopusempire.moonblast.params.ShortParam;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,10 +33,10 @@ public class IMBPacket {
     
     static
     {
-        DESERIALIZERS.put(ParamType.INT, (params, buffer) -> params.add(new IntParam(buffer)));
         DESERIALIZERS.put(ParamType.BYTE, (params, buffer) -> params.add(new ByteParam(buffer)));
+        DESERIALIZERS.put(ParamType.SHORT, (params, buffer) -> params.add(new ShortParam(buffer)));
+        DESERIALIZERS.put(ParamType.INT, (params, buffer) -> params.add(new IntParam(buffer)));
     }
-    
     
     private final List<IMBParam> params = new ArrayList<>();
     

@@ -4,7 +4,6 @@ import java.nio.ByteBuffer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
 public class ByteParamTest {
     
     public ByteParamTest() {
@@ -51,5 +50,4 @@ public class ByteParamTest {
         ByteParam p = new ByteParam((byte)-135);
         assertEquals(1, p.getSizeInBytes());
     }
-    
 }
