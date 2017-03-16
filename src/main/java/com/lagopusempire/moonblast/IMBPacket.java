@@ -122,17 +122,37 @@ public class IMBPacket {
         return length;
     }
     
-//    public IMBPacket addByte(byte value);
-//    public IMBPacket addShort(short value);
+    public IMBPacket addByte(byte value) {
+        addIMBParam(new ByteParam(value));
+        return this;
+    }
+    
+    public IMBPacket addShort(short value) {
+        addIMBParam(new ShortParam(value));
+        return this;
+    }
+    
     public IMBPacket addInt(int value) {
         addIMBParam(new IntParam(value));
         return this;
     }
-//    public IMBPacket addLong(long value);
-//    public IMBPacket addFloat(float value);
+    
+    public IMBPacket addLong(long value) {
+        addIMBParam(new LongParam(value));
+        return this;
+    }
+    
+    public IMBPacket addFloat(float value) {
+        addIMBParam(new FloatParam(value));
+        return this;
+    }
+    
 //    public IMBPacket addDouble(double value);
+    
 //    public IMBPacket addBoolean(boolean value);
+    
 //    public IMBPacket addChar(char value);
+    
 //    public IMBPacket addBinary(byte[] value);
     
     private boolean isVersionValid() {
