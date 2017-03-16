@@ -1,5 +1,6 @@
 package com.lagopusempire.moonblast;
 
+import com.lagopusempire.moonblast.params.ByteParam;
 import com.lagopusempire.moonblast.params.IMBParam;
 import com.lagopusempire.moonblast.params.IntParam;
 import com.lagopusempire.moonblast.params.ParamType;
@@ -32,6 +33,7 @@ public class IMBPacket {
     static
     {
         DESERIALIZERS.put(ParamType.INT, (params, buffer) -> params.add(new IntParam(buffer)));
+        DESERIALIZERS.put(ParamType.BYTE, (params, buffer) -> params.add(new ByteParam(buffer)));
     }
     
     
