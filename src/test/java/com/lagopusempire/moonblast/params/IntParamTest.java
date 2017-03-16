@@ -7,14 +7,6 @@ import static org.junit.Assert.*;
 public class IntParamTest {
     
     public IntParamTest() {
-        IntParam p = new IntParam(5);
-        byte[] bytes = new byte[p.getSizeInBytes()];
-        ByteBuffer b = ByteBuffer.wrap(bytes);
-        p.fillBuffer(b);
-        b.rewind();
-        
-        IntParam p2 = new IntParam(b);
-        assertEquals(p.getInt(), p2.getInt());
     }
 
     /**
@@ -24,6 +16,21 @@ public class IntParamTest {
     public void testGetInt() {
         IntParam p = new IntParam(24);
         assertEquals(24, p.getInt());
+    }
+    
+    /**
+     * Test of fillBuffer method, of class IntParam.
+     */
+    @Test
+    public void testFillBuffer() {
+        IntParam p = new IntParam(5);
+        byte[] bytes = new byte[p.getSizeInBytes()];
+        ByteBuffer b = ByteBuffer.wrap(bytes);
+        p.fillBuffer(b);
+        b.rewind();
+        
+        IntParam p2 = new IntParam(b);
+        assertEquals(p.getInt(), p2.getInt());
     }
 
     /**

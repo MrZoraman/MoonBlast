@@ -8,14 +8,6 @@ import static org.junit.Assert.*;
 public class ByteParamTest {
     
     public ByteParamTest() {
-        ByteParam p = new ByteParam((byte)7);
-        byte[] bytes = new byte[p.getSizeInBytes()];
-        ByteBuffer b = ByteBuffer.wrap(bytes);
-        p.fillBuffer(b);
-        b.rewind();
-        
-        ByteParam p2 = new ByteParam(b);
-        assertEquals(p.getByte(), p2.getByte());
     }
 
     /**
@@ -25,6 +17,21 @@ public class ByteParamTest {
     public void testGetByte() {
         ByteParam p = new ByteParam((byte)56);
         assertEquals((byte)56, p.getByte());
+    }
+    
+    /**
+     * Test of fillBuffer method, of class ByteParam.
+     */
+    @Test
+    public void testFillBuffer() {
+        ByteParam p = new ByteParam((byte)7);
+        byte[] bytes = new byte[p.getSizeInBytes()];
+        ByteBuffer b = ByteBuffer.wrap(bytes);
+        p.fillBuffer(b);
+        b.rewind();
+        
+        ByteParam p2 = new ByteParam(b);
+        assertEquals(p.getByte(), p2.getByte());
     }
 
     /**
