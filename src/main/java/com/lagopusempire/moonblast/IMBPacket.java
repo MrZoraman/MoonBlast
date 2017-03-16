@@ -1,5 +1,6 @@
 package com.lagopusempire.moonblast;
 
+import com.lagopusempire.moonblast.params.BooleanParam;
 import com.lagopusempire.moonblast.params.ByteParam;
 import com.lagopusempire.moonblast.params.DoubleParam;
 import com.lagopusempire.moonblast.params.FloatParam;
@@ -42,6 +43,7 @@ public class IMBPacket {
         DESERIALIZERS.put(ParamType.LONG, (params, buffer) -> params.add(new LongParam(buffer)));
         DESERIALIZERS.put(ParamType.FLOAT, (params, buffer) -> params.add(new FloatParam(buffer)));
         DESERIALIZERS.put(ParamType.DOUBLE, (params, buffer) -> params.add(new DoubleParam(buffer)));
+        DESERIALIZERS.put(ParamType.BOOLEAN, (params, buffer) -> params.add(new BooleanParam(buffer)));
     }
     
     private final List<IMBParam> params = new ArrayList<>();
@@ -154,7 +156,10 @@ public class IMBPacket {
         return this;
     }
     
-//    public IMBPacket addBoolean(boolean value);
+    public IMBPacket addBoolean(boolean value) {
+        addIMBParam(new BooleanParam(value));
+        return this;
+    }
     
 //    public IMBPacket addChar(char value);
     
