@@ -50,5 +50,4 @@ public class IntParamTest {
         IntParam p = new IntParam(-252);
         assertEquals(4, p.getSizeInBytes());
     }
-    
 }
