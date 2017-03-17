@@ -2,6 +2,11 @@ package com.lagopusempire.moonblast.params;
 
 import com.lagopusempire.moonblast.IDeserializer;
 
+/**
+ * Contains a list of parameter types, as well as serializers, which
+ * can be accessed in O(1) time, no fancy data structures required.
+ * @author Matt
+ */
 public enum ParamType {
     BYTE    (0, Byte.SIZE / 8,      (params, buffer) -> params.add(new ByteParam(buffer))),
     SHORT   (1, Short.SIZE / 8,     (params, buffer) -> params.add(new ShortParam(buffer))),
@@ -14,6 +19,12 @@ public enum ParamType {
     BINARY  (8, -1,                 (params, buffer) -> params.add(new BinaryParam(buffer))),
     STRING  (9, -1,                 (params, buffer) -> params.add(new StringParam(buffer)));
     
+    /**
+     * This is an array of types. These indexes must coorespond
+     * with the first parameters of the ParamTypes specified in
+     * the enum. Basically, keep this array and the list of enum
+     * values in the same order.
+     */
     private static final ParamType[] TYPES = {
         BYTE,
         SHORT,
@@ -27,28 +38,70 @@ public enum ParamType {
         STRING
     };
     
+    /**
+     * The ordinal value of this data type in the type array.
+     */
     final int value;
+    
+    /**
+     * The size of this data type in bytes.
+     */
     final int byteSize;
+    
+    /**
+     * The deserializer for this data type. It might be better to think
+     * of this as a deserializer factory.
+     */
     private final IDeserializer deserializer;
     
+    /**
+     * Creates a ParamType.
+     * @param value The ordinal value it shows up as in the array/enum listing.
+     * @param byteSize The size of this type in bytes.
+     * @param deserializer The deserializer for this type.
+     */
     private ParamType(int value, int byteSize, IDeserializer deserializer) {
         this.value = value;
         this.byteSize = byteSize;
         this.deserializer = deserializer;
     }
 
+    /**
+     * Gets the ordinal value for this data type.
+     * @return The value as a byte, ready to be put in a packet.
+     */
     public byte getValue() {
         return (byte) value;
     }
     
+    /**
+     * Gets the size of this data type in bytes.
+     * @return Size in bytes. Probably intuitive for some data types,
+     * but meaningless for other data types, like binary or string,
+     * which will return -1 instead.
+     */
     public int getSizeInBytes() {
         return byteSize;
     }
     
+    /**
+     * Gets the deserializer for this data type.
+     * @return The deserializer instance, of which one will exist
+     * for each data type.
+     */
     public IDeserializer getDeserializer() {
         return deserializer;
     }
 
+    /**
+     * Converts an ordinal value to its corresponding data
+     * type in O(1) time (it just accesses an array, so make
+     * sure the value is less than the amount of data types
+     * supported by this implementation, or you will get an
+     * IndexOutOfBounds exception.
+     * @param value The ordinal value.
+     * @return The data type enum instance.
+     */
     public static ParamType get(int value) {
         return TYPES[value];
     }

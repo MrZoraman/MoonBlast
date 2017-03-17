@@ -2,13 +2,28 @@ package com.lagopusempire.moonblast.params;
 
 import java.nio.ByteBuffer;
 
+/**
+ * Double parameter.
+ * @author Matt
+ */
 public class DoubleParam implements IMBParam {
+    /**
+     * The double data, either ready to be serialized or just deserialized.
+     */
     private final double value;
     
+    /**
+     * Constructor for serializing.
+     * @param value The data to be serialized.
+     */
     public DoubleParam(double value) {
         this.value = value;
     }
     
+    /**
+     * Constructor for deserializing. Data will be read from the buffer.
+     * @param buffer The buffer to be read from.
+     */
     public DoubleParam(ByteBuffer buffer) {
         if(buffer == null) {
             throw new IllegalArgumentException("buffer cannot be null!");
@@ -17,6 +32,11 @@ public class DoubleParam implements IMBParam {
         this.value = buffer.getDouble();
     }
     
+    /**
+     * Gets the data held by this instance. Will likely be used to read
+     * data after its been deserialized.
+     * @return The double data.
+     */
     public double getDouble() {
         return value;
     }
