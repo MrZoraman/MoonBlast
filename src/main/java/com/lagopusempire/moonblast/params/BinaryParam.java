@@ -3,7 +3,7 @@ package com.lagopusempire.moonblast.params;
 import java.nio.ByteBuffer;
 
 public class BinaryParam implements IMBParam {
-    private final byte[] value;
+    protected final byte[] value;
     
     public BinaryParam(byte[] value) {
         if(value == null) {

@@ -9,7 +9,8 @@ public enum ParamType {
     DOUBLE  (5, Double.SIZE / 8),
     BOOLEAN (6, 1),
     CHAR    (7, Character.SIZE / 8),
-    BINARY  (8, -1);
+    BINARY  (8, -1),
+    STRING  (9, -1);
     
     private static final ParamType[] TYPES = {
         BYTE,
@@ -20,7 +21,8 @@ public enum ParamType {
         DOUBLE,
         BOOLEAN,
         CHAR,
-        BINARY
+        BINARY,
+        STRING
     };
     
     final int value;

@@ -38,6 +38,7 @@ public class IMBPacket {
         DESERIALIZERS.put(ParamType.BOOLEAN, (params, buffer) -> params.add(new BooleanParam(buffer)));
         DESERIALIZERS.put(ParamType.CHAR, (params, buffer) -> params.add(new CharParam(buffer)));
         DESERIALIZERS.put(ParamType.BINARY, (params, buffer) -> params.add(new BinaryParam(buffer)));
+        DESERIALIZERS.put(ParamType.STRING, (params, buffer) -> params.add(new StringParam(buffer)));
     }
     
     private final List<IMBParam> params = new ArrayList<>();
@@ -162,6 +163,11 @@ public class IMBPacket {
     
     public IMBPacket addBinary(byte[] value) {
         addIMBParam(new BinaryParam(value));
+        return this;
+    }
+    
+    public IMBPacket addString(String value) {
+        addIMBParam(new StringParam(value));
         return this;
     }
     
