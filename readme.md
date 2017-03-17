@@ -34,9 +34,9 @@ If binary data in th MoonBlast protocol is saved to disk, the .mb file extension
 
 # The Library
 ## Serialization
-The library is very easy to use. First, you construct an IMBPacket:
+The library is very easy to use. First, you construct an MBPacket:
 ```java
-IMBPacket packet = new IMBPacket();
+MBPacket packet = new MBPacket();
 ```
 You then fill it with various params.
 ```java
@@ -63,11 +63,11 @@ data = Arrays.copyOfRange(data, ParamType.INT.getSizeInBytes() + 1, data.length)
 The ```ParamType.INT.getSizeInBytes()``` does what you think it does. An integer contains 4 bytes. I don't think this will
 change any time in the forseeable future, but is there for those who don't like magic numbers. The +1 is for the Packet Start.
 
-You can now feed the data into the IMBPacket constructor:
+You can now feed the data into the MBPacket constructor:
 ```java
-IMBPacket packet = new IMBPacket(data);
+MBPacket packet = new MBPacket(data);
 ```
-All the deserialization is done in the constructor of IMBPacket. From here, it is good practice to make sure the version is correct.
+All the deserialization is done in the constructor of MBPacket. From here, it is good practice to make sure the version is correct.
 ```java
 if(!packet.isVersionValid()) {
     // error...
