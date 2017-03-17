@@ -50,4 +50,16 @@ public class DoubleParamTest {
         DoubleParam p = new DoubleParam(-22.355);
         assertEquals(8, p.getSizeInBytes());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        DoubleParam p = new DoubleParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        DoubleParam p = new DoubleParam(33.3578);
+        p.fillBuffer(null);
+    }
 }

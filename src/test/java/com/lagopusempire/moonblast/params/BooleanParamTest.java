@@ -50,4 +50,16 @@ public class BooleanParamTest {
         BooleanParam p = new BooleanParam(true);
         assertEquals(1, p.getSizeInBytes());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        BooleanParam p = new BooleanParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        BooleanParam p = new BooleanParam(false);
+        p.fillBuffer(null);
+    }
 }

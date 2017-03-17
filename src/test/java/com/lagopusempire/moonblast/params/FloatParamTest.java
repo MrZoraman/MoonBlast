@@ -50,4 +50,16 @@ public class FloatParamTest {
         FloatParam p = new FloatParam((float)-234.2467);
         assertEquals(4, p.getSizeInBytes());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        FloatParam p = new FloatParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        FloatParam p = new FloatParam((float)123.456);
+        p.fillBuffer(null);
+    }
 }

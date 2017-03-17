@@ -52,8 +52,20 @@ public class BinaryParamTest {
     }
     
     @Test(expected = IllegalArgumentException.class)
-    public void testNullBinaryParam() {
+    public void testNullBinaryConstructor() {
         byte[] b = null;
         BinaryParam p = new BinaryParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        BinaryParam p = new BinaryParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        BinaryParam p = new BinaryParam(new byte[]{1, 2, 3});
+        p.fillBuffer(null);
     }
 }

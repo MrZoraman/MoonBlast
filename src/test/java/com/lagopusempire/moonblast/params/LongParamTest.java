@@ -51,4 +51,15 @@ public class LongParamTest {
         assertEquals(8, p.getSizeInBytes());
     }
     
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        LongParam p = new LongParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        LongParam p = new LongParam(24345524245L);
+        p.fillBuffer(null);
+    }
 }

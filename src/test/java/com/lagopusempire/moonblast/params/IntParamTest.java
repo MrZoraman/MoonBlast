@@ -50,4 +50,16 @@ public class IntParamTest {
         IntParam p = new IntParam(-252);
         assertEquals(4, p.getSizeInBytes());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        IntParam p = new IntParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        IntParam p = new IntParam(22345);
+        p.fillBuffer(null);
+    }
 }

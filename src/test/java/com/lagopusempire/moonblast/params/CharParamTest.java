@@ -50,4 +50,16 @@ public class CharParamTest {
         CharParam p = new CharParam('e');
         assertEquals(2, p.getSizeInBytes());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        CharParam p = new CharParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        CharParam p = new CharParam('c');
+        p.fillBuffer(null);
+    }
 }

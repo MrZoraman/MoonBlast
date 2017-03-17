@@ -50,4 +50,16 @@ public class ShortParamTest {
         ShortParam p = new ShortParam((short)-3222);
         assertEquals(2, p.getSizeInBytes());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        ShortParam p = new ShortParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        ShortParam p = new ShortParam((short)2456);
+        p.fillBuffer(null);
+    }
 }

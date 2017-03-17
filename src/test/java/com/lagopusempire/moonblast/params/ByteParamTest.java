@@ -50,4 +50,16 @@ public class ByteParamTest {
         ByteParam p = new ByteParam((byte)-135);
         assertEquals(1, p.getSizeInBytes());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullConstructor() {
+        ByteBuffer b = null;
+        ByteParam p = new ByteParam(b);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullFillBuffer() {
+        ByteParam p = new ByteParam((byte)6);
+        p.fillBuffer(null);
+    }
 }
