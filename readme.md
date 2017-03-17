@@ -10,6 +10,11 @@ that can go wrong. I am not saying that the protocol is perfect or bug free,
 just the simple idea that the less there is that can go wrong, generally the
 less things that will go wrong.
 
+Being such a small protocol (~12KB), you can be sure it's not going to take up
+too much space. This library is *fast*. Not only is it not sending that many
+instructions to your CPU, but it is designed with speed in mind, making use
+of O(1) time whenever it can. 
+
 # The Protocol
 As stated before, the protocol strives to be simple and efficient. 
 The MoonBlast protocol contains no fluff. It is as small as it can be without
