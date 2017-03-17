@@ -2,7 +2,7 @@ package com.lagopusempire.moonblast;
 
 import com.lagopusempire.moonblast.params.*;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MBPacket {
@@ -19,7 +19,7 @@ public class MBPacket {
         ParamType.BYTE //closing char
     };
     
-    private final List<IMBParam> params = new ArrayList<>();
+    private final List<IMBParam> params = new LinkedList<>();
     
     private boolean versionValid = true;
     
@@ -38,15 +38,14 @@ public class MBPacket {
         }
         
         int paramsLength = buffer.getInt();
-        List<ParamType> paramTypes = new ArrayList<>();
+        ParamType[] paramTypes = new ParamType[paramsLength];
         for(int ii = 0; ii < paramsLength; ii++) {
             byte typeValue = buffer.get();
-            paramTypes.add(ParamType.get(typeValue));
+            paramTypes[ii] = ParamType.get(typeValue);
         }
         
-        for(int ii = 0; ii < paramTypes.size(); ii++) {
-            ParamType type = paramTypes.get(ii);
-            type.getDeserializer().deserialize(params, buffer);
+        for(int ii = 0; ii < paramsLength; ii++) {
+            paramTypes[ii].getDeserializer().deserialize(params, buffer);
         }
         
         byte endByte = buffer.get();
