@@ -1,15 +1,6 @@
 package com.lagopusempire.moonblast;
 
-import com.lagopusempire.moonblast.params.BooleanParam;
-import com.lagopusempire.moonblast.params.ByteParam;
-import com.lagopusempire.moonblast.params.CharParam;
-import com.lagopusempire.moonblast.params.DoubleParam;
-import com.lagopusempire.moonblast.params.FloatParam;
-import com.lagopusempire.moonblast.params.IMBParam;
-import com.lagopusempire.moonblast.params.IntParam;
-import com.lagopusempire.moonblast.params.LongParam;
-import com.lagopusempire.moonblast.params.ParamType;
-import com.lagopusempire.moonblast.params.ShortParam;
+import com.lagopusempire.moonblast.params.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +37,7 @@ public class IMBPacket {
         DESERIALIZERS.put(ParamType.DOUBLE, (params, buffer) -> params.add(new DoubleParam(buffer)));
         DESERIALIZERS.put(ParamType.BOOLEAN, (params, buffer) -> params.add(new BooleanParam(buffer)));
         DESERIALIZERS.put(ParamType.CHAR, (params, buffer) -> params.add(new CharParam(buffer)));
+        DESERIALIZERS.put(ParamType.BINARY, (params, buffer) -> params.add(new BinaryParam(buffer)));
     }
     
     private final List<IMBParam> params = new ArrayList<>();
@@ -168,7 +160,10 @@ public class IMBPacket {
         return this;
     }
     
-//    public IMBPacket addBinary(byte[] value);
+    public IMBPacket addBinary(byte[] value) {
+        addIMBParam(new BinaryParam(value));
+        return this;
+    }
     
     private boolean isVersionValid() {
         return versionValid;
