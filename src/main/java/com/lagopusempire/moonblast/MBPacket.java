@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class IMBPacket {
+public class MBPacket {
     private static final byte PACKET_START = '(';
     private static final byte PACKET_END = ')';
     private static final Map<ParamType, Deserializer> DESERIALIZERS = new HashMap<>();
@@ -45,9 +45,9 @@ public class IMBPacket {
     
     private boolean versionValid = true;
     
-    public IMBPacket() { }
+    public MBPacket() { }
     
-    public IMBPacket(byte[] data) {
+    public MBPacket(byte[] data) {
         //when this method is called, the start char and the length of packet
         //will have already been read. Length of packet is built into
         //data.length
@@ -121,52 +121,52 @@ public class IMBPacket {
         return length;
     }
     
-    public IMBPacket addByte(byte value) {
+    public MBPacket addByte(byte value) {
         addIMBParam(new ByteParam(value));
         return this;
     }
     
-    public IMBPacket addShort(short value) {
+    public MBPacket addShort(short value) {
         addIMBParam(new ShortParam(value));
         return this;
     }
     
-    public IMBPacket addInt(int value) {
+    public MBPacket addInt(int value) {
         addIMBParam(new IntParam(value));
         return this;
     }
     
-    public IMBPacket addLong(long value) {
+    public MBPacket addLong(long value) {
         addIMBParam(new LongParam(value));
         return this;
     }
     
-    public IMBPacket addFloat(float value) {
+    public MBPacket addFloat(float value) {
         addIMBParam(new FloatParam(value));
         return this;
     }
     
-    public IMBPacket addDouble(double value) {
+    public MBPacket addDouble(double value) {
         addIMBParam(new DoubleParam(value));
         return this;
     }
     
-    public IMBPacket addBoolean(boolean value) {
+    public MBPacket addBoolean(boolean value) {
         addIMBParam(new BooleanParam(value));
         return this;
     }
     
-    public IMBPacket addChar(char value) {
+    public MBPacket addChar(char value) {
         addIMBParam(new CharParam(value));
         return this;
     }
     
-    public IMBPacket addBinary(byte[] value) {
+    public MBPacket addBinary(byte[] value) {
         addIMBParam(new BinaryParam(value));
         return this;
     }
     
-    public IMBPacket addString(String value) {
+    public MBPacket addString(String value) {
         addIMBParam(new StringParam(value));
         return this;
     }

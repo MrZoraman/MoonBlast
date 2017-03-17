@@ -5,20 +5,20 @@ import java.util.Arrays;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class IMBPacketTest {
+public class MBPacketTest {
     
-    public IMBPacketTest() {
+    public MBPacketTest() {
     }
     
     @Test
     public void testPacketLength() {
-        IMBPacket packet = new IMBPacket();
+        MBPacket packet = new MBPacket();
         assertEquals(1 + 4 + 4 + 4 + 1, packet.getPacketLengthInBytes());
     }
     
     @Test
     public void testPacketLengthWithParams() {
-        IMBPacket packet = new IMBPacket();
+        MBPacket packet = new MBPacket();
         packet.addInt(57);
         packet.addInt(632);
         packet.addInt(-4);
@@ -31,7 +31,7 @@ public class IMBPacketTest {
             0, 0, 0, 1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, -117, 39, 41 
         };
         
-        IMBPacket packet = new IMBPacket(data);
+        MBPacket packet = new MBPacket(data);
         assertTrue(packet.isVersionValid());
         IMBParam[] params = packet.getParams();
         assertEquals(2, params.length);
@@ -49,13 +49,13 @@ public class IMBPacketTest {
             0, 42, 0, 1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, -117, 39, 41 
         };
         
-        IMBPacket packet = new IMBPacket(data);
+        MBPacket packet = new MBPacket(data);
         assertFalse(packet.isVersionValid());
     }
     
     @Test
     public void testParamsAndBinary() {
-        IMBPacket packet = new IMBPacket();
+        MBPacket packet = new MBPacket();
         packet.addInt(5)
                 .addInt(10)
                 .addInt(15)
@@ -64,7 +64,7 @@ public class IMBPacketTest {
         
         byte[] b2 = Arrays.copyOfRange(b, ParamType.INT.getSizeInBytes() + 1, b.length);
         
-        packet = new IMBPacket(b2);
+        packet = new MBPacket(b2);
         IMBParam[] params = packet.getParams();
         assertEquals(4, params.length);
         assertEquals(ParamType.INT, params[0].getType());
@@ -80,7 +80,7 @@ public class IMBPacketTest {
     
     @Test
     public void testBinaryParamsEverywhere() {
-        IMBPacket packet = new IMBPacket();
+        MBPacket packet = new MBPacket();
         packet.addInt(10)
                 .addBinary(new byte[]{1, 2, 3})
                 .addInt(15)
@@ -92,7 +92,7 @@ public class IMBPacketTest {
         
         byte[] b2 = Arrays.copyOfRange(b, ParamType.INT.getSizeInBytes() + 1, b.length);
         
-        packet = new IMBPacket(b2);
+        packet = new MBPacket(b2);
         IMBParam[] params = packet.getParams();
         assertEquals(6, params.length);
         assertEquals(ParamType.INT, params[0].getType());
@@ -113,7 +113,7 @@ public class IMBPacketTest {
     
     @Test
     public void theBigTest() {
-        IMBPacket packet = new IMBPacket();
+        MBPacket packet = new MBPacket();
         packet.addByte((byte)-53)
                 .addShort((short)25560)
                 .addInt(245667000)
@@ -127,7 +127,7 @@ public class IMBPacketTest {
         byte[] b = packet.getData();
         byte[] b2 = Arrays.copyOfRange(b, ParamType.INT.getSizeInBytes() + 1, b.length);
         
-        packet = new IMBPacket(b2);
+        packet = new MBPacket(b2);
         IMBParam[] params = packet.getParams();
         assertEquals(10, params.length);
         
