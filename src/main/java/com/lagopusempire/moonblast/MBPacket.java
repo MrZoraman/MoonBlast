@@ -3,14 +3,11 @@ package com.lagopusempire.moonblast;
 import com.lagopusempire.moonblast.params.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MBPacket {
     private static final byte PACKET_START = '(';
     private static final byte PACKET_END = ')';
-    private static final Map<ParamType, Deserializer> DESERIALIZERS = new HashMap<>();
     private static final VersionHandler VERSION_HANDLER = new VersionHandler();
     
     private static final ParamType[] PACKET_LAYOUT = {
@@ -21,25 +18,6 @@ public class MBPacket {
         //... (various data)
         ParamType.BYTE //closing char
     };
-    
-    @FunctionalInterface
-    private interface Deserializer {
-        public void deserialize(List<IMBParam> params, ByteBuffer buffer);
-    }
-    
-    static
-    {
-        DESERIALIZERS.put(ParamType.BYTE, (params, buffer) -> params.add(new ByteParam(buffer)));
-        DESERIALIZERS.put(ParamType.SHORT, (params, buffer) -> params.add(new ShortParam(buffer)));
-        DESERIALIZERS.put(ParamType.INT, (params, buffer) -> params.add(new IntParam(buffer)));
-        DESERIALIZERS.put(ParamType.LONG, (params, buffer) -> params.add(new LongParam(buffer)));
-        DESERIALIZERS.put(ParamType.FLOAT, (params, buffer) -> params.add(new FloatParam(buffer)));
-        DESERIALIZERS.put(ParamType.DOUBLE, (params, buffer) -> params.add(new DoubleParam(buffer)));
-        DESERIALIZERS.put(ParamType.BOOLEAN, (params, buffer) -> params.add(new BooleanParam(buffer)));
-        DESERIALIZERS.put(ParamType.CHAR, (params, buffer) -> params.add(new CharParam(buffer)));
-        DESERIALIZERS.put(ParamType.BINARY, (params, buffer) -> params.add(new BinaryParam(buffer)));
-        DESERIALIZERS.put(ParamType.STRING, (params, buffer) -> params.add(new StringParam(buffer)));
-    }
     
     private final List<IMBParam> params = new ArrayList<>();
     
@@ -68,7 +46,7 @@ public class MBPacket {
         
         for(int ii = 0; ii < paramTypes.size(); ii++) {
             ParamType type = paramTypes.get(ii);
-            DESERIALIZERS.get(type).deserialize(params, buffer);
+            type.getDeserializer().deserialize(params, buffer);
         }
         
         byte endByte = buffer.get();
