@@ -171,7 +171,7 @@ public class IMBPacket {
         return this;
     }
     
-    private boolean isVersionValid() {
+    public boolean isVersionValid() {
         return versionValid;
     }
 }
