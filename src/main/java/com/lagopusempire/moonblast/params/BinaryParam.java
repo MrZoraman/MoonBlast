@@ -6,6 +6,10 @@ public class BinaryParam implements IMBParam {
     private final byte[] value;
     
     public BinaryParam(byte[] value) {
+        if(value == null) {
+            throw new IllegalArgumentException("value cannot be null!");
+        }
+        
         this.value = value;
     }
     

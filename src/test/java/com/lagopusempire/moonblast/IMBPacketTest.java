@@ -42,4 +42,9 @@ public class IMBPacketTest {
         assertEquals(35623, p1.getInt());
     }
     
+    @Test
+    public void testParamsAndBinary() {
+        IMBPacket packet = new IMBPacket();
+    }
+    
 }

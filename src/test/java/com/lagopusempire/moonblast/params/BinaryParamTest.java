@@ -50,4 +50,10 @@ public class BinaryParamTest {
         BinaryParam p = new BinaryParam(new byte[]{1, 5, 88, 23});
         assertEquals(4 + ParamType.INT.getSizeInBytes(), p.getSizeInBytes());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullBinaryParam() {
+        byte[] b = null;
+        BinaryParam p = new BinaryParam(b);
+    }
 }
