@@ -32,6 +32,18 @@ public class CharParamTest {
         CharParam p2 = new CharParam(b);
         assertEquals(p.getChar(), p2.getChar());
     }
+    
+    @Test
+    public void testWideChar() {
+        CharParam p = new CharParam('Á');
+        byte[] bytes = new byte[p.getSizeInBytes()];
+        ByteBuffer b = ByteBuffer.wrap(bytes);
+        p.fillBuffer(b);
+        b.rewind();
+        
+        CharParam p2 = new CharParam(b);
+        assertEquals('Á', p2.getChar());
+    }
 
     /**
      * Test of getType method, of class CharParam.

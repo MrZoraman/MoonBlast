@@ -32,6 +32,18 @@ public class StringParamTest {
         StringParam p2 = new StringParam(b);
         assertEquals(p.getString(), p2.getString());
     }
+    
+    @Test
+    public void testWideString() {
+        StringParam p = new StringParam("göõd stûff");
+        byte[] bytes = new byte[p.getSizeInBytes()];
+        ByteBuffer b = ByteBuffer.wrap(bytes);
+        p.fillBuffer(b);
+        b.rewind();
+        
+        StringParam p2 = new StringParam(b);
+        assertEquals("göõd stûff", p2.getString());
+    }
 
     /**
      * Test of getType method, of class StringParam.
