@@ -153,4 +153,13 @@ public class MBPacketTest {
         assertArrayEquals(new byte[]{1, -4, 2, 33}, ((BinaryParam)params[8]).getBinary());
         assertEquals("testing 123", ((StringParam)params[9]).getString());
     }
+    
+    @Test
+    public void testZeroLengthPacket() {
+        MBPacket packet = new MBPacket();
+        byte[] b = packet.getData();
+        byte[] b2 = Arrays.copyOfRange(b, ParamType.INT.getSizeInBytes() + 1, b.length);
+        packet = new MBPacket(b2);
+        assertEquals(0, packet.getParams().length);
+    }
 }
