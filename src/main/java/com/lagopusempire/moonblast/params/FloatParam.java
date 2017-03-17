@@ -10,6 +10,10 @@ public class FloatParam implements IMBParam {
     }
     
     public FloatParam(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         this.value = buffer.getFloat();
     }
     
@@ -19,6 +23,10 @@ public class FloatParam implements IMBParam {
 
     @Override
     public void fillBuffer(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         buffer.putFloat(value);
     }
 

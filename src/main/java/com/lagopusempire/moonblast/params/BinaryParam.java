@@ -14,6 +14,10 @@ public class BinaryParam implements IMBParam {
     }
     
     public BinaryParam(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         int length = buffer.getInt();
         this.value = new byte[length];
         buffer.get(value);
@@ -25,6 +29,10 @@ public class BinaryParam implements IMBParam {
 
     @Override
     public void fillBuffer(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         buffer.putInt(value.length);
         buffer.put(value);
     }

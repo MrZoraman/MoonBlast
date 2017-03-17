@@ -10,6 +10,10 @@ public class BooleanParam implements IMBParam {
     }
     
     public BooleanParam(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         this.value = buffer.get() != 0;
     }
     
@@ -19,6 +23,10 @@ public class BooleanParam implements IMBParam {
 
     @Override
     public void fillBuffer(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         buffer.put((byte)(value ? 1 : 0));
     }
 

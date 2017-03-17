@@ -10,6 +10,10 @@ public class ShortParam implements IMBParam {
     }
     
     public ShortParam(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         this.value = buffer.getShort();
     }
     
@@ -19,6 +23,10 @@ public class ShortParam implements IMBParam {
 
     @Override
     public void fillBuffer(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         buffer.putShort(value);
     }
 

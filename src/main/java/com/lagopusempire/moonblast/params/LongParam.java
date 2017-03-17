@@ -10,6 +10,10 @@ public class LongParam implements IMBParam {
     }
     
     public LongParam(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         this.value = buffer.getLong();
     }
     
@@ -19,6 +23,10 @@ public class LongParam implements IMBParam {
 
     @Override
     public void fillBuffer(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         buffer.putLong(value);
     }
 

@@ -10,6 +10,10 @@ public class CharParam implements IMBParam {
     }
     
     public CharParam(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         this.value = buffer.getChar();
     }
     
@@ -19,6 +23,10 @@ public class CharParam implements IMBParam {
     
     @Override
     public void fillBuffer(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         buffer.putChar(value);
     }
     

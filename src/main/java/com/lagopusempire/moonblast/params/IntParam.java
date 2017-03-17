@@ -10,6 +10,10 @@ public class IntParam implements IMBParam {
     }
     
     public IntParam(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         this.value = buffer.getInt();
     }
     
@@ -19,6 +23,10 @@ public class IntParam implements IMBParam {
 
     @Override
     public void fillBuffer(ByteBuffer buffer) {
+        if(buffer == null) {
+            throw new IllegalArgumentException("buffer cannot be null!");
+        }
+        
         buffer.putInt(value);
     }
     
