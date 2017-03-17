@@ -4,7 +4,6 @@ import com.lagopusempire.moonblast.params.BinaryParam;
 import com.lagopusempire.moonblast.params.IMBParam;
 import com.lagopusempire.moonblast.params.IntParam;
 import com.lagopusempire.moonblast.params.ParamType;
-import com.sun.prism.PixelFormat;
 import java.util.Arrays;
 import org.junit.Test;
 import static org.junit.Assert.*;
