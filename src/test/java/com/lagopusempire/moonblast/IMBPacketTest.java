@@ -35,6 +35,7 @@ public class IMBPacketTest {
         };
         
         IMBPacket packet = new IMBPacket(data);
+        assertTrue(packet.isVersionValid());
         IMBParam[] params = packet.getParams();
         assertEquals(2, params.length);
         
@@ -43,6 +44,16 @@ public class IMBPacketTest {
         
         assertEquals(0, p0.getInt());
         assertEquals(35623, p1.getInt());
+    }
+    
+    @Test
+    public void testInvalidVersion() {
+        byte[] data = new byte[] {
+            0, 42, 0, 1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, -117, 39, 41 
+        };
+        
+        IMBPacket packet = new IMBPacket(data);
+        assertFalse(packet.isVersionValid());
     }
     
     @Test
