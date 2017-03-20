@@ -43,6 +43,23 @@ public class MBPacket {
     };
     
     /**
+     * This is the minimum size the packet can be in bytes. It won't contain
+     * any data.
+     */
+    private static final int MIN_SIZE_IN_BYTES;
+    
+    static
+    {
+        int minSize = 0;
+        //start at 2 to skip the first two fields, which should be read
+        //before the a packet is constructed from a byte array.
+        for(int ii = 2; ii < PACKET_LAYOUT.length; ii++) {
+            minSize += PACKET_LAYOUT[ii].getSizeInBytes();
+        }
+        MIN_SIZE_IN_BYTES = minSize;
+    }
+    
+    /**
      * This is the list of parameters that make up the packet. It will either
      * be a list of parameters just deserialized, or a list of parameters about
      * to be serialized.
@@ -70,6 +87,14 @@ public class MBPacket {
         //when this method is called, the start char and the length of packet
         //will have already been read. Length of packet is built into
         //data.length
+        if(data == null) {
+            throw new IllegalArgumentException("data cannot be null!");
+        }
+        
+        if(data.length < MIN_SIZE_IN_BYTES) {
+            throw new PacketParseException("data is not long enough to contain all of the packet metadata!");
+        }
+        
         ByteBuffer buffer = ByteBuffer.wrap(data);
         byte version = buffer.get();
         

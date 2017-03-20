@@ -207,4 +207,19 @@ public class MBPacketTest {
         
         MBPacket packet = new MBPacket(data);
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullData() {
+        byte[] data = null;
+        MBPacket packet = new MBPacket(data);
+    }
+    
+    @Test(expected = PacketParseException.class)
+    public void malformedMetaData() {
+        byte[] data = new byte[] {
+            1, 0, 0
+        };
+        
+        MBPacket packet = new MBPacket(data);
+    }
 }
