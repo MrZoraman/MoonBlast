@@ -21,6 +21,10 @@ The MoonBlast protocol contains no fluff. It is as small as it can be without
 resorting to compression, or making arbitrary sacrifices, such as maximum
 packet size.
 
+If binary data in th MoonBlast protocol is saved to disk, the .mb file extension is reccomended, but not required.
+
+## Packet Layout
+
 Each packet is layed out pretty simply:
 
 | Short Name    | Data Type        | Size in Bytes  | Description  |
@@ -29,13 +33,39 @@ Each packet is layed out pretty simply:
 | Packet Length | int              | 4              | This is the length of the packet in bytes |
 | Version       | byte             | 1              | This is the protocol version. |
 | Param Length  | int              | 4              | This is the amount of parameters in the packet. |
-| Param Types   | byte[]           | Param Length   | This contains the list of param data types, in the same order that the parameters appear in the packet. |
-| Params        | ...              | ...            | This is a list of parameters. Sense of this data is made by walking through the param types list that came previously. |
+| Params        | ...              | ...            | This is a list of parameters. See below for info on each parameter. |
 | Packet End    | byte             | 1              | This marks the end of the packet. Its value is ')'. |
 
-Each parameter is simply its binary data. However, a binary parameter has 4 bytes at the beginning for storing the length of the binary parameter as an int.
+Parameters are layed out like so:
 
-If binary data in th MoonBlast protocol is saved to disk, the .mb file extension is reccomended, but not required.
+| Short Name    | Data Type        | Size in Bytes  | Description  |
+| ----------    | -------------    | -------------  | ----- |
+| Param Type    | byte             | 1              | This is the type of the parameter. See below for the list of possible values.  |
+| Param Data    | ...              | ...            | This is the data for the parameter. Length varies depending on the type. |
+
+*Binary* parameters are layed out like this:
+
+| Short Name    | Data Type        | Size in Bytes  | Description  |
+| ----------    | -------------    | -------------  | ----- |
+| Param Type    | byte             | 1              | This is the type of the parameter. See below for the list of possible values.  |
+| Param Length  | int              | 4              | This is the length of the bianry data. |
+| Param Data    | byte[]           | Param Length   | This is the data for the parameter. Length varies depending on the type. |
+
+## Data Types
+The following data types are supported by the protocol:
+
+| Data Type  | ID | Size in Bytes | Notes |
+| ---------- | -- | ------------- | ----- |
+| BYTE       | 0  | 1             ||
+| SHORT      | 1  | 2             ||
+| INT        | 2  | 4             ||
+| LONG       | 3  | 8             ||
+| FLOAT      | 4  | 4             ||
+| DOUBLE     | 5  | 8             ||
+| BOOLEAN    | 6  | 1             | Byte. 0=false, 1=true |
+| CHAR       | 7  | 2             | UTF-32 wide char |
+| BINARY     | 8  | ...           | Varies in length |
+| STRING     | 9  | ...           | UTF-32 wide string. Convenience type. Really just a binary type. |
 
 # The Library
 ## Serialization
