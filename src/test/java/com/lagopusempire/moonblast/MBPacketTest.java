@@ -162,4 +162,13 @@ public class MBPacketTest {
         packet = new MBPacket(b2);
         assertEquals(0, packet.getParams().length);
     }
+    
+    @Test(expected = PacketParseException.class)
+    public void testInvalidParamType() {
+        byte[] data = new byte[] {
+            1, 0, 0, 0, 2, 88, 0, 0, 0, 0, 34, 0, 0, -117, 39, 41
+        };
+        
+        MBPacket packet = new MBPacket(data);
+    }
 }

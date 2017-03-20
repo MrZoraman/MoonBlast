@@ -80,13 +80,18 @@ public class MBPacket {
         
         int paramsLength = buffer.getInt();
         for(int ii = 0; ii < paramsLength; ii++) {
-            ParamType type = ParamType.get(buffer.get());
+            byte typeValue = buffer.get();
+            if(!ParamType.isValid(typeValue)) {
+                throw new PacketParseException("Invalid data type read: " + typeValue);
+            }
+            
+            ParamType type = ParamType.get(typeValue);
             type.getDeserializer().deserialize(params, buffer);
         }
         
         byte endByte = buffer.get();
         if(endByte != PACKET_END) {
-            throw new PacketParseException("packet missing closing byte!");
+            throw new PacketParseException("Packet missing closing byte!");
         }
     }
     

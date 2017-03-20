@@ -20,6 +20,12 @@ public enum ParamType {
     STRING  (9, -1,                 (params, buffer) -> params.add(new StringParam(buffer)));
     
     /**
+     * This is the first index that is out of bounds for the param types.
+     * This will be the index of the last valid type + 1.
+     */
+    private static final int PARAMTYPE_EOF = 10;
+    
+    /**
      * This is an array of types. These indexes must coorespond
      * with the first parameters of the ParamTypes specified in
      * the enum. Basically, keep this array and the list of enum
@@ -37,6 +43,15 @@ public enum ParamType {
         BINARY,
         STRING
     };
+    
+    /**
+     * Checks if a param type byte value maps to a valid type or not.
+     * @param value The value to test.
+     * @return True if it is valid, false if it is out of bounds.
+     */
+    public static boolean isValid(byte value) {
+        return value >= 0 && value < PARAMTYPE_EOF;
+    }
     
     /**
      * The ordinal value of this data type in the type array.
