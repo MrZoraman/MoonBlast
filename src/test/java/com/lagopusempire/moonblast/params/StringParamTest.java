@@ -60,6 +60,7 @@ public class StringParamTest {
     @Test
     public void testGetSizeInBytes() {
         StringParam p = new StringParam("hello there~");
+        //+2 for the BOM
         assertEquals(("hello there~".length() * 2) + ParamType.INT.getSizeInBytes() + 2, p.getSizeInBytes());
     }
     

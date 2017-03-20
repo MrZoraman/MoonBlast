@@ -43,13 +43,22 @@ Parameters are layed out like so:
 | Param Type    | byte             | 1              | This is the type of the parameter. See below for the list of possible values.  |
 | Param Data    | ...              | ...            | This is the data for the parameter. Length varies depending on the type. |
 
-*Binary* parameters are layed out like this:
+Binary parameters are layed out like this:
 
 | Short Name    | Data Type        | Size in Bytes  | Description  |
 | ----------    | -------------    | -------------  | ----- |
 | Param Type    | byte             | 1              | This is the type of the parameter. See below for the list of possible values.  |
 | Param Length  | int              | 4              | This is the length of the bianry data. |
-| Param Data    | byte[]           | Param Length   | This is the data for the parameter. Length varies depending on the type. |
+| Param Data    | byte[]           | Param Length   | This is the data for the parameter. |
+
+String parameters are layed out like this:
+
+| Short Name    | Data Type        | Size in Bytes  | Description  |
+| ----------    | -------------    | -------------  | ----- |
+| Param Type    | byte             | 1              | This is the type of the parameter. See below for the list of possible values.  |
+| Param Length  | int              | 4              | This is the length of the bianry data. |
+| BOM           | byte[2]          | 2              | This is the BOM (byte order mark) of the wide string. |
+| Param Data    | byte[]           | Param Length - 2   | This is the data for the parameter. Length is the Param Lenght - 2 to account for the BOM. |
 
 ## Data Types
 The following data types are supported by the protocol:
@@ -65,7 +74,7 @@ The following data types are supported by the protocol:
 | BOOLEAN    | 6  | 1             | Byte. 0=false, 1=true |
 | CHAR       | 7  | 2             | UTF-32 wide char |
 | BINARY     | 8  | ...           | Varies in length |
-| STRING     | 9  | ...           | UTF-32 wide string. Convenience type. Really just a binary type. |
+| STRING     | 9  | ...           | Wide string, varies in length.. |
 
 # The Library
 ## Serialization
