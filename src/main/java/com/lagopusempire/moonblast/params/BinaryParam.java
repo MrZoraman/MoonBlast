@@ -1,5 +1,6 @@
 package com.lagopusempire.moonblast.params;
 
+import com.lagopusempire.moonblast.PacketParseException;
 import java.nio.ByteBuffer;
 
 /**
@@ -33,7 +34,16 @@ public class BinaryParam implements IMBParam {
             throw new IllegalArgumentException("buffer cannot be null!");
         }
         
+        if(buffer.remaining() < ParamType.INT.getSizeInBytes()) {
+            throw new PacketParseException("No bytes left for binary type length!");
+        }
+        
         int length = buffer.getInt();
+        
+        if(buffer.remaining() < length) {
+            throw new PacketParseException("No bytes left for binary data!");
+        }
+        
         this.value = new byte[length];
         buffer.get(value);
     }

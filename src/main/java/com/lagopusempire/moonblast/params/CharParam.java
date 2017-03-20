@@ -1,5 +1,6 @@
 package com.lagopusempire.moonblast.params;
 
+import com.lagopusempire.moonblast.PacketParseException;
 import java.nio.ByteBuffer;
 
 /**
@@ -26,7 +27,11 @@ public class CharParam implements IMBParam {
      */
     public CharParam(ByteBuffer buffer) {
         if(buffer == null) {
-            throw new IllegalArgumentException("buffer cannot be null!");
+            throw new IllegalArgumentException("Buffer cannot be null!");
+        }
+        
+        if(buffer.remaining() < ParamType.CHAR.getSizeInBytes()) {
+            throw new PacketParseException("No bytes left for char!");
         }
         
         this.value = buffer.getChar();
@@ -44,7 +49,7 @@ public class CharParam implements IMBParam {
     @Override
     public void fillBuffer(ByteBuffer buffer) {
         if(buffer == null) {
-            throw new IllegalArgumentException("buffer cannot be null!");
+            throw new IllegalArgumentException("Buffer cannot be null!");
         }
         
         buffer.putChar(value);

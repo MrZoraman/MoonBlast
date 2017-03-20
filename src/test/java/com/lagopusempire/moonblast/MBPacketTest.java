@@ -171,4 +171,40 @@ public class MBPacketTest {
         
         MBPacket packet = new MBPacket(data);
     }
+    
+    @Test(expected = PacketParseException.class)
+    public void testTooFewParams() {
+        byte[] data = new byte[] {
+            1, 0, 0, 0, 2, 2, 0, 0, -117, 39, 41
+        };
+        
+        MBPacket packet = new MBPacket(data);
+    }
+    
+    @Test(expected = PacketParseException.class)
+    public void testTooManyParams() {
+        byte[] data = new byte[] {
+            1, 0, 0, 0, 3, 2, 0, 0, -117, 39, 41
+        };
+        
+        MBPacket packet = new MBPacket(data);
+    }
+    
+    @Test(expected = PacketParseException.class)
+    public void testNoPacketEnd() {
+        byte[] data = new byte[] {
+            1, 0, 0, 0, 1, 2, 0, 0, -117, 39, 0
+        };
+        
+        MBPacket packet = new MBPacket(data);
+    }
+    
+    @Test(expected = PacketParseException.class)
+    public void testUnexpectedEnd() {
+        byte[] data = new byte[] {
+            1, 0, 0, 0, 1, 2, 0
+        };
+        
+        MBPacket packet = new MBPacket(data);
+    }
 }

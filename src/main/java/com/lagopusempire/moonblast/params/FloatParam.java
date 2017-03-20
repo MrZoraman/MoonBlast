@@ -1,5 +1,6 @@
 package com.lagopusempire.moonblast.params;
 
+import com.lagopusempire.moonblast.PacketParseException;
 import java.nio.ByteBuffer;
 
 /**
@@ -26,7 +27,11 @@ public class FloatParam implements IMBParam {
      */
     public FloatParam(ByteBuffer buffer) {
         if(buffer == null) {
-            throw new IllegalArgumentException("buffer cannot be null!");
+            throw new IllegalArgumentException("Buffer cannot be null!");
+        }
+        
+        if(buffer.remaining() < ParamType.FLOAT.getSizeInBytes()) {
+            throw new PacketParseException("No bytes left for float!");
         }
         
         this.value = buffer.getFloat();
@@ -44,7 +49,7 @@ public class FloatParam implements IMBParam {
     @Override
     public void fillBuffer(ByteBuffer buffer) {
         if(buffer == null) {
-            throw new IllegalArgumentException("buffer cannot be null!");
+            throw new IllegalArgumentException("Buffer cannot be null!");
         }
         
         buffer.putFloat(value);

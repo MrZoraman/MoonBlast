@@ -1,5 +1,6 @@
 package com.lagopusempire.moonblast.params;
 
+import com.lagopusempire.moonblast.PacketParseException;
 import java.nio.ByteBuffer;
 
 /**
@@ -26,7 +27,7 @@ public class ShortParam implements IMBParam {
      */
     public ShortParam(ByteBuffer buffer) {
         if(buffer == null) {
-            throw new IllegalArgumentException("buffer cannot be null!");
+            throw new IllegalArgumentException("Buffer cannot be null!");
         }
         
         this.value = buffer.getShort();
@@ -44,7 +45,11 @@ public class ShortParam implements IMBParam {
     @Override
     public void fillBuffer(ByteBuffer buffer) {
         if(buffer == null) {
-            throw new IllegalArgumentException("buffer cannot be null!");
+            throw new IllegalArgumentException("Buffer cannot be null!");
+        }
+        
+        if(buffer.remaining() < ParamType.SHORT.getSizeInBytes()) {
+            throw new PacketParseException("No bytes left for short!");
         }
         
         buffer.putShort(value);
