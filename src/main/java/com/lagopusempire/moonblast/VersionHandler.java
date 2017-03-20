@@ -10,7 +10,7 @@ public class VersionHandler {
     /**
      * The newest version of the protocol that this implementation knows about.
      */
-    private static final int VERSION = 1;
+    private static final byte VERSION = 1;
     
     /**
      * Checks if the version is valid or not.
@@ -26,7 +26,7 @@ public class VersionHandler {
      * for creating packets.
      * @return The current version (from this library's perspective).
      */
-    public int getVersion() {
+    public byte getVersion() {
         return VERSION;
     }
 }

@@ -27,7 +27,7 @@ Each packet is layed out pretty simply:
 | ----------    | -------------    | -------------  | ----- |
 | Packet Start  | byte             | 1              | This marks the start of the packet. Its value is '('.  |
 | Packet Length | int              | 4              | This is the length of the packet in bytes |
-| Version       | int              | 4              | This is the protocol version. |
+| Version       | byte             | 1              | This is the protocol version. |
 | Param Length  | int              | 4              | This is the amount of parameters in the packet. |
 | Param Types   | byte[]           | Param Length   | This contains the list of param data types, in the same order that the parameters appear in the packet. |
 | Params        | ...              | ...            | This is a list of parameters. Sense of this data is made by walking through the param types list that came previously. |

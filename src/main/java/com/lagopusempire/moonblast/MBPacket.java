@@ -36,7 +36,7 @@ public class MBPacket {
     private static final ParamType[] PACKET_LAYOUT = {
         ParamType.BYTE, //opening char
         ParamType.INT, //length (byte count)
-        ParamType.INT, //version
+        ParamType.BYTE, //version
         ParamType.INT, //number of params
         //... (various data)
         ParamType.BYTE //closing char
@@ -71,7 +71,7 @@ public class MBPacket {
         //will have already been read. Length of packet is built into
         //data.length
         ByteBuffer buffer = ByteBuffer.wrap(data);
-        int version = buffer.getInt();
+        byte version = buffer.get();
         
         if(!VERSION_HANDLER.isVersionValid(version)) {
             versionValid = false;
@@ -114,7 +114,7 @@ public class MBPacket {
         
         buffer.put(PACKET_START);
         buffer.putInt(packetLengthInBytes);
-        buffer.putInt(VERSION_HANDLER.getVersion());
+        buffer.put(VERSION_HANDLER.getVersion());
         buffer.putInt(params.size());
         
         for(int ii = 0; ii < params.size(); ii++) {

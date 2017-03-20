@@ -13,7 +13,7 @@ public class MBPacketTest {
     @Test
     public void testPacketLength() {
         MBPacket packet = new MBPacket();
-        assertEquals(1 + 4 + 4 + 4 + 1, packet.getPacketLengthInBytes());
+        assertEquals(1 + 4 + 1 + 4 + 1, packet.getPacketLengthInBytes());
     }
     
     @Test
@@ -22,13 +22,13 @@ public class MBPacketTest {
         packet.addInt(57);
         packet.addInt(632);
         packet.addInt(-4);
-        assertEquals(1 + 4 + 4 + 4 + (1 * 3) + (4 + 4 + 4) + 1, packet.getPacketLengthInBytes());
+        assertEquals(1 + 4 + 1 + 4 + (1 * 3) + (4 + 4 + 4) + 1, packet.getPacketLengthInBytes());
     }
     
     @Test
     public void testPacketIntDeserialization() {
         byte[] data = new byte[] {
-            0, 0, 0, 1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, -117, 39, 41 
+            1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, -117, 39, 41 
         };
         
         MBPacket packet = new MBPacket(data);
