@@ -56,12 +56,12 @@ The following data types are supported by the protocol:
 
 | Data Type  | ID | Size in Bytes | Notes |
 | ---------- | -- | ------------- | ----- |
-| BYTE       | 0  | 1             ||
-| SHORT      | 1  | 2             ||
-| INT        | 2  | 4             ||
-| LONG       | 3  | 8             ||
-| FLOAT      | 4  | 4             ||
-| DOUBLE     | 5  | 8             ||
+| BYTE       | 0  | 1             |       |
+| SHORT      | 1  | 2             |       |
+| INT        | 2  | 4             |       |
+| LONG       | 3  | 8             |       |
+| FLOAT      | 4  | 4             |       |
+| DOUBLE     | 5  | 8             |       |
 | BOOLEAN    | 6  | 1             | Byte. 0=false, 1=true |
 | CHAR       | 7  | 2             | UTF-32 wide char |
 | BINARY     | 8  | ...           | Varies in length |
