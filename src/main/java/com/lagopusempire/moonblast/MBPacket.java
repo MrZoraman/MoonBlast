@@ -79,14 +79,9 @@ public class MBPacket {
         }
         
         int paramsLength = buffer.getInt();
-        ParamType[] paramTypes = new ParamType[paramsLength];
         for(int ii = 0; ii < paramsLength; ii++) {
-            byte typeValue = buffer.get();
-            paramTypes[ii] = ParamType.get(typeValue);
-        }
-        
-        for(int ii = 0; ii < paramsLength; ii++) {
-            paramTypes[ii].getDeserializer().deserialize(params, buffer);
+            ParamType type = ParamType.get(buffer.get());
+            type.getDeserializer().deserialize(params, buffer);
         }
         
         byte endByte = buffer.get();
@@ -118,11 +113,9 @@ public class MBPacket {
         buffer.putInt(params.size());
         
         for(int ii = 0; ii < params.size(); ii++) {
-            buffer.put(params.get(ii).getType().getValue());
-        }
-        
-        for(int ii = 0; ii < params.size(); ii++) {
-            params.get(ii).fillBuffer(buffer);
+            IMBParam param = params.get(ii);
+            buffer.put(param.getType().getValue());
+            param.fillBuffer(buffer);
         }
         
         buffer.put(PACKET_END);
