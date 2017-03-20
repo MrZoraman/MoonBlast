@@ -55,7 +55,7 @@ Parameters are layed out like so:
 The following data types are supported by the protocol:
 
 | Data Type  | ID | Size in Bytes | Notes |
-| ---------- | -- | ------------- | ----- |
+| ---------- | --- | ------------- | ----- |
 | BYTE       | 0  | 1             |       |
 | SHORT      | 1  | 2             |       |
 | INT        | 2  | 4             |       |
