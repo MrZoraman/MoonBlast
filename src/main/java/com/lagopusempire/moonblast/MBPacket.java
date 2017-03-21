@@ -12,14 +12,14 @@ import java.util.List;
  */
 public class MBPacket {
     /**
-     * The end byte
+     * The byte that marks the beginning of a packet.
      */
-    private static final byte PACKET_START = '(';
+    public static final byte PACKET_START = '(';
     
     /**
      * The end byte
      */
-    private static final byte PACKET_END = ')';
+    public static final byte PACKET_END = ')';
     
     /**
      * The version handler. This contains what could be complex code for
