@@ -35,4 +35,12 @@
             <url>https://en.wikipedia.org/wiki/Zlib_License</url>
         </license>
     </licenses>
+    
+    <distributionManagement>
+        <repository>
+            <id>lago-repo</id>
+            <name>Lagopus Empire Repo-releases</name>
+            <url>ftp://repo/repo/</url>
+        </repository>
+    </distributionManagement>
 </project>
